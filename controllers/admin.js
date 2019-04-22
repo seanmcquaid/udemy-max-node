@@ -62,13 +62,15 @@ res.redirect("/admin/products")
 }
 
 exports.getProducts = (req,res,next) =>{
-  Product.fetchAll(products=>{
+  Product.findAll().then((products)=>{
     res.render('admin/products', {
       prods: products,
       pageTitle: 'Admin Products',
       path: '/admin/products'
     });
-});
+  }).catch((error)=>{
+    console.log(error)
+  });
 }
 
 exports.postDeleteProduct = (req,res,next)=>{
