@@ -165,6 +165,14 @@ form {
   width: 100%;
 }
 
+.image{
+  height: 20rem;
+}
+
+.image img{
+  max-height: 100%;
+}
+
 .card__image img {
   width: 100%;
 }
