@@ -36,7 +36,7 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-mongoose.connect("mongodb+srv://sean:trumpet15@cluster0-un7wn.mongodb.net/test?retryWrites=true").then(result=>{
+mongoose.connect("mongodb+srv://sean:trumpet15@cluster0-un7wn.mongodb.net/test?retryWrites=true", {useNewUrlParser:true}).then(result=>{
     app.listen(3000);
 }).catch(err=>{
     console.log(err)
