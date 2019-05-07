@@ -4,11 +4,18 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
 const session = require("express-session");
+const MongoDbStore = require("connect-mongodb-session")(session);
 
 const errorController = require('./controllers/error');
 const User = require("./models/user");
 
+const MONGODB_URI = "mongodb+srv://sean:trumpet15@cluster0-un7wn.mongodb.net/shop";
+
 const app = express();
+const store = new MongoDbStore({
+    uri : MONGODB_URI,
+    collection: "sessions",
+});
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -23,6 +30,7 @@ app.use(session({
     secret: "my secret",
     resave: false,
     saveUninitialized: false,
+    store: store
 }))
 
 app.use((req,res,next)=>{
@@ -43,7 +51,7 @@ app.use(authRoutes);
 
 app.use(errorController.get404);
 
-mongoose.connect("mongodb+srv://sean:trumpet15@cluster0-un7wn.mongodb.net/shop?retryWrites=true", {useNewUrlParser:true})
+mongoose.connect(MONGODB_URI, {useNewUrlParser:true})
 .then(result=>{
     User.findOne().then((user)=>{
         if(!user){
