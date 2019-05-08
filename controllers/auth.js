@@ -17,6 +17,13 @@ exports.postLogin = (req,res,next)=>{
       // console.log(req.user)
       res.redirect("/");
   }).catch((err)=>{
-      console.log(err)
+      // console.log(err)
   });
+};
+
+exports.postLogout = (req,res,next)=>{
+  req.session.destroy((err)=>{
+    // console.log(err)
+    res.redirect("/")
+  })
 };
